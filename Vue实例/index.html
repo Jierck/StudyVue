@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+   <div id="root">
+      <div @click="handleClick">
+            {{message}}
+      </div>
+      <item></item>
+    </div> 
+   <script>
+    // 定义一个组件 这是一个组件实例
+    Vue.component('item', {
+        template:'<div>hello world2</div>'
+    })
+   var vm = new Vue({ //这是一个根实例
+       el: '#root',
+       data:{
+           message:'hello world'
+       },
+       methods:{
+           handleClick:function(){
+               alert('hello');
+           }
+       },
+   });
+   </script>
+</body>
+</html>

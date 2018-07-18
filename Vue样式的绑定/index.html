@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+    .activated{
+        color: #ff0000;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- class的对象绑定 -->
+        <div v-on:click="handleDivClick" 
+        :class="{activated:isActivated}">hello wrold</div>
+        <!-- class与数组绑定 -->
+        <div v-on:click="handleDivClick" 
+        :class="[activated]">hello wrold</div>
+        <div v-on:click="handleDivClick" 
+        :class="[activated,activated_one]">hello wrold</div>
+        <!-- 用style的对象绑定 -->
+        <div :style="styleObj" v-on:click="handleDivClick">
+                hello wrold 
+        </div>
+        <!-- 用style的数组绑定 -->
+        <div :style="[styleObj,{fontSize:'20px'}]" v-on:click="handleDivClick">
+                hello wrold 
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                // 用class的方法
+                isActivated:false,
+                activated:"", 
+                activated_one: "activated-one",
+                // 用style的对象方法
+                styleObj:{
+                    color:"black"
+                }
+            },
+            methods:{
+                handleDivClick:function(){
+                    // 用class
+                    this.isActivated = !this.isActivated;
+                    this.activated=this.activated==="activated"? this.activated = "":this.activated = "activated"
+                    // 用style方法
+                    this.styleObj.color = this.styleObj.color === "black" ? "red" : "black" 
+                }
+            }
+        })
+    </script>
+</body>
+</html>
