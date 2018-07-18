@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <!-- v-for 是循环指令 list是循环vue中list数据 然后放在item这个参数中 -->
+            <!-- <li v-for="item in list">{{item}}</li> -->
+            <todo-item v-bind:content="item" 
+                       v-bind:index="index"
+                       v-for="(item,index) in list"
+                       @delete="handleitemdelete">
+            </todo-item>
+        </ul>
+    </div>
+    <script>
+        // Vue.component("TodoItem",{
+        //     props: ['content'] , //props 子组件接受父组件的值
+        //     template: "<li>{{content}}</li>"
+        // })
+    var TodoItem = {
+        props: ['content','index'] , //props 子组件接受父组件的值
+        template: "<li v-on:click='handleitemClick' style='cursor: pointer;'>{{content}}</li>",
+        methods:{
+            handleitemClick :function(){
+               this.$emit("delete",this.index);//触发事件
+            }
+        }
+    }
+    var app = new Vue({
+        el:'#app',
+        components:{ //绑定子组件
+            TodoItem:TodoItem
+        },
+        data:{
+            list:[],
+            inputValue: ''
+        },
+        methods:{ 
+            //methods 将被混入到 Vue 实例中。可以直接通过 VM 实例访问这些方法，或者在指令表达式中使用
+            handleBtnClick:function(){
+                this.list.push(this.inputValue);
+                this.inputValue = '';
+                // push() 方法可向数组的末尾添加一个或多个元素，并返回新的长度。
+            },
+            handleitemdelete:function(index){
+                this.list.splice(index,1);
+            }
+        }
+    })
+    </script>
+</body>
+</html>
