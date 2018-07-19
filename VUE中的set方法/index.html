@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 
+        在上一节当中我们知道对象的改变方式是改变对象的键名和键值
+        数组的改变方式是通过Vue中自带的七种变异方法和改变数组引用值
+        除此之外我们还可以用Vue.set()方法改变
+     -->
+    <div id="app">
+        <!-- 对象的改变 -->
+        <div v-for="(item, key) of userInfo" >
+            {{key}}:{{item}}
+        </div>
+        <!-- 数组的改变 -->
+        <div v-for="item of list" :key="index">
+            {{item}}
+        </div>
+        <button v-on:click="handleClick">点击</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list:["1111111","22222222","33333333"],
+                userInfo:{
+                    name:"dell",
+                    age:"25",
+                    gender:"male",
+                    slary:"secret"
+                }
+            },
+            methods:{
+                handleClick: function(){
+                     /* 
+                     Vue.set方法 Vue.set(target对象, key键名, value键值)
+                     */
+                    // 对象
+                    // 写法一
+                     Vue.set(this.userInfo, "addresss", "nanjing");
+                    // 写法二
+                    this.$set(this.userInfo, "addresss", "nanjing")
+                    // 数组 Vue.set(数组名,数组下标,更改值)
+                    // 写法一
+                    Vue.set(this.list, 1, "33333");
+                    // 写法二
+                    this.$set(this.list, 1, "33333")
+                } 
+            }           
+        })
+    </script>
+</body>
+</html>

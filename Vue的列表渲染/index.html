@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 数组渲染 -->
+        <!-- 一般在项目开发中为了性能的提高我们需要给列表循环提供唯一的key值在开发中一般用json数据唯一标识来显示 -->
+        <!-- template占位符它可以包裹一些元素如下的循环但是它在页面渲染的时候不会被渲染到页面上 -->
+        <!-- 其中item就是数值index代表数组下标 -->
+        <template v-for="(item, index) of list" :key="item.id">
+            <div>
+                {{item.title}}---{{index}}
+            </div>
+            <span>
+                {{item.title}}---{{index}}
+            </span>
+        </template>
+        <!-- 对象渲染 -->
+        <!-- 其中item就是数值index代表对象键值 key只的是对象的键名 index是第几个 -->
+        <div v-for="(item, key) of items" >
+            {{item}}
+        </div>
+    </div>
+    <script>
+        /* 在vue中我们不能直接用下标的方式给数组或者对象添加内容
+
+            vue给我们提供了7种不同数组变异方式分别为
+            pop() 删除数组最后一项
+            push() 给数组增加一条信息
+            shift() 把数组第一项给删除
+            unshift() 往数组的第一项当中添加内容
+            splice() 做数组截取比如截取
+            sort()对数组进行排序
+            reverse()对数组取反值
+
+            或者我们可以改变数组或对象内容的引用如：
+            vm.list = [
+                "111111","22222","333333","33333"
+            ]
+            vm.userInfo = {
+                name:"dell",
+                age:"25",
+                gender:"male",
+                slary:"secret",
+                address:"nanjing"
+            }
+        */
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                // list:[
+                //     "111111","22222","333333"
+                // ],
+                userInfo:{
+                    name:"dell",
+                    age:"25",
+                    gender:"male",
+                    slary:"secret"
+                }
+            }            
+        })
+    </script>
+</body>
+
+</html>
