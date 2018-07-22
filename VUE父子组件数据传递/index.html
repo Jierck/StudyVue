@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 
+        父组件通过属性的方式给子组件传递数据,子组件通过props方法获得数据
+
+        单项数据流：
+        父组件可以随意的向子组件传递参数，子组件绝对不能修改父组件传递过来的参数
+
+        子组件通过事件的形式给父组件传递数据，父组件监听子组件传递过来的事件。
+     -->
+    <div id="app">
+        <!-- 监听事件 -->
+        <counter :count="3" @change="handlechange" ></counter>
+        <counter :count="2" @change="handlechange"></counter>
+        <div>{{total}}</div>
+    </div>
+    <script>
+        // 创建局部子组件
+        var counter = {
+            // 接受父组件的值
+            props:['count'],
+            // 因为父组件可以随意的向子组件传递参数，子组件绝对不能修改父组件传递过来的参数所以新建一个数据。
+            data:function(){
+                return {
+                    number:this.count
+                }
+            },
+            template:'<div @click="handleClick">{{number}}</div>',
+            methods:{
+                handleClick:function(){
+                    this.number += 2;
+                    // 子组件用$emit传递事件，同时也可以带参数传递
+                    this.$emit('change',2)
+                }
+            }
+        }
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                total: 5
+            },
+            components:{
+                counter:counter
+            },
+            methods:{
+                // 父组件的监听方法
+                handlechange:function(step){
+                    this.total += step
+                }
+            }
+        })
+    </script>
+</body>
+</html>
