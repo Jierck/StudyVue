@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- props特性指的是当你的父组件使用子组件的时候通过属性向子组件传值的时候子组件声明了对父组件传递值的接收这种叫做props特性
+        特性：1、父组件传递值子组件就可以显示出来2、父组件的属性不会显示在子组件最外层的dom标签里面
+        非props指的是父组件向子组件传递了属性但是子组件没并没有声明传递过来的内容
+        特性：1、没有办法显示父组件传递的属性2、父组件的属性会显示在子组件最外层的dom标签里面
+    -->
+    <div id="app">
+        <child content="123"></child>
+    </div>
+    <script>
+        Vue.component('child', {
+            props:{
+                // 组件参数校验
+                // 参数校验类别多种用数组形式
+                // content: [Number,String]
+                // 用对象来写
+                content:{
+                    type: String, //类型
+                    required:false, //是否必传
+                    default:1234, //默认值
+                    // 自定义校验器
+                    validator:function(value){
+                        return (value.length>3)
+                    }
+                }
+            },
+            template:"<div>{{content}}</div>"
+        })
+        var vm = new Vue({
+            el:"#app",
+
+        })
+    </script>
+</body>
+</html>
