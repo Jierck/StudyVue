@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 在事件上绑定native修饰符即可 -->
+    <div id="app">
+        <child @click.native="handleClick"></child> //子组件子定义事件
+    </div>
+    <script>
+        Vue.component('child', {
+            template:"<div>child</div>",
+            methods:{
+                handleClick:function(){
+                    alert('click');
+                }
+            } 
+        })
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            },
+            methods:{
+                handleClick:function(){
+                    alert('clickc');
+                }
+            } 
+           
+        })
+    </script>
+</body>
+</html>
