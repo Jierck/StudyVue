@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 首先父组件调用子组件的时候给子组件传递了一个插槽这个插槽是作用域插槽
+        这个插槽必须是template开头和结尾的插槽 同时需要slot-scope对应的属性的名字
+        来接收到传递过来的数据
+        应用场景：
+        1、子组件做循环
+        2、子组件某一部分dom结构是由外部传递过来的时候
+    -->
+    <div id="root">
+        <child>
+            <template slot-scope="props">
+                <li>{{props.item}}-hello</li>
+            </template>
+        </child>
+    </div>
+    <script>
+        Vue.component('child', {
+            data:function(){
+                return {
+                    list:[1,2,3,4]
+                }
+            },
+            template:`<div>
+                        <ul>
+                            <slot v-for="item of list" :item=item></slot>
+                        </ul>
+            </div>
+
+            `
+        })
+
+        var vm = new Vue({
+            el:"#root"
+        })
+    </script>
+</body>
+</html>

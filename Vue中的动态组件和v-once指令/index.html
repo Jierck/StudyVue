@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+   <div id="root">
+       <!-- 动态组件 is这个值是用来动态加载组件的 -->
+       <!-- 通过v-once可以提高静态页面的展示效率 -->
+       <!-- <component :is="type"></component> -->
+       <!-- 原始写法 -->
+       <child-one v-if="type==='child-one'"></child-one>
+       <child-two v-if="type==='child-two'"></child-two>
+       <button v-on:click="handleclick">change</button>
+   </div> 
+   <script>
+   Vue.component('child-one', {
+       template:'<div v-once>child-one</div>'
+   })    
+   Vue.component('child-two', {
+       template:'<div v-once>child-two</div>'
+   }) 
+   var vm = new Vue({
+       el:"#root",
+       data:{
+           type:'child-one',
+       },
+       methods:{
+               handleclick:function(){
+                    this.type = this.type === 'child-one' ? 'child-two' : 'child-one'
+               }
+           }
+   })
+   </script>
+</body>
+</html>

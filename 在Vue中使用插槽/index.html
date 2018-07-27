@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <child>
+            <!-- 插槽内容 -->
+            <!-- <p>Dell</p>  -->
+            <!-- 具名插槽 -->
+            <div class="header" slot="header">header</div>
+            <div class="footer" slot="footer">footer</div>
+        </child>
+    </div>
+    <script>
+        Vue.component('child', {
+            /* slot引用插槽内容
+                当子组件中没有插槽内容 
+                slot定义的默认值将会出现
+                当有具名插槽的时候需要在slot中写上name
+                同时具名插槽也是可以有默认值
+             */
+            template:`<div>
+                            <slot name='header'></slot>
+                            <p>hello</p>
+                            <slot name='footer'></slot>
+                      <div>`,
+        })
+
+        var vm = new Vue({
+            el:'#root'
+        })
+    </script>
+</body>
+</html>
